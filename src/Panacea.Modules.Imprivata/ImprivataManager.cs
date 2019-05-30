@@ -155,13 +155,11 @@ namespace Panacea.Modules.Imprivata
                         return AuthenticateWithPassword(p, password);
                     default:
                         throw new AuthenticationException("Account does not exist");
-                        //OnAccountDoesNotExist();
                 }
             }
             catch (Exception ex)
             {
                 throw ex;
-                //OnError(ex);
             }
         }
 
@@ -232,8 +230,7 @@ namespace Panacea.Modules.Imprivata
                             Name = args.Name
                         };
                     case 1:
-
-                        throw new AuthenticationException();
+                        throw new AuthenticationException("additional auth required");
                         //addtional auth required.
                     default:
                         throw new AuthenticationException("incorrect credentials");

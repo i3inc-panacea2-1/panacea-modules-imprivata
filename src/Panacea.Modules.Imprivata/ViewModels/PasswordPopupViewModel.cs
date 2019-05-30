@@ -10,6 +10,7 @@ using Panacea.Core;
 using System.Windows.Input;
 using Panacea.Controls;
 using System.Windows.Controls;
+using Panacea.Modularity.Imprivata;
 
 namespace Panacea.Modules.Imprivata.ViewModels
 {
@@ -22,7 +23,10 @@ namespace Panacea.Modules.Imprivata.ViewModels
         bool _passwordSet = false;
         public override void Deactivate()
         {
-            taskCompletionSource.TrySetException(new Exception(""));
+            if (!_passwordSet)
+            {
+                taskCompletionSource.TrySetException(new AuthenticationException("password not provided"));
+            }
         }
         public PasswordPopupViewModel(PanaceaServices core, string username, string modality)
         {
