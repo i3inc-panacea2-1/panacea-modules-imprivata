@@ -30,7 +30,7 @@ namespace Panacea.Modules.Imprivata
 
             cp.GenerateExecutable = false;
             cp.WarningLevel = 0;
-            cr = cpd.CompileAssemblyFromSource(cp, "using UserPlugins.Imprivata; using System; using System.Collections.Generic; using System.Text;" + sourceCode);
+            cr = cpd.CompileAssemblyFromSource(cp, "using Panacea.Modules.Imprivata; using System; using System.Collections.Generic; using System.Text;" + sourceCode);
             if (cr.Errors.HasErrors)
             {
                 var lst = new List<string>();
