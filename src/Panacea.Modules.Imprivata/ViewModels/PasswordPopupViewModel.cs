@@ -18,8 +18,8 @@ namespace Panacea.Modules.Imprivata.ViewModels
     class PasswordPopupViewModel : PopupViewModelBase<string>
     {
         private PanaceaServices _core;
-        private string Username { get; }
-        private string Modality { get; }
+        public string Username { get; }
+        public string Modality { get; }
         bool _passwordSet = false;
         public override void Deactivate()
         {
