@@ -34,6 +34,7 @@ namespace Panacea.Modules.Imprivata
         {
             try
             {
+                string passw = await ShowPasswordPopupAsync("KOSTAS", "WTF IS MODALITY");
                 //change card depending on imprivata installation
                 var results = new List<KeyValuePair<int, XElement>>();
                 Exception exception = null;
@@ -152,7 +153,7 @@ namespace Panacea.Modules.Imprivata
                             Domain = domain1
                         };
                         string password = await ShowPasswordPopupAsync(username, modality);
-                        return AuthenticateWithPassword(p, password);
+                        return await AuthenticateWithPasswordAsync(p, password);
                     default:
                         throw new AuthenticationException("Account does not exist");
                 }
@@ -192,9 +193,9 @@ namespace Panacea.Modules.Imprivata
                 throw new AuthenticationException("ui manager not loaded");
             }
         }
-        public AuthenticationResult AuthenticateWithPassword(PasswordRequestEventArgs args, string password)
+        public Task<AuthenticationResult> AuthenticateWithPasswordAsync(PasswordRequestEventArgs args, string password)
         {
-            try
+            return Task.Run(() =>
             {
                 string user = args.Username;
                 string domain = args.Domain;
@@ -231,17 +232,12 @@ namespace Panacea.Modules.Imprivata
                         };
                     case 1:
                         throw new AuthenticationException("additional auth required");
-                        //addtional auth required.
+                    //addtional auth required.
                     default:
                         throw new AuthenticationException("incorrect credentials");
                         //OnWrongCredentials(args);
                 }
-            }
-            catch (Exception ex)
-            {
-                throw ex;// new AuthenticationException();
-                //OnError(ex);
-            }
+            });
         }
 
         static string MakePINAuthRequestObject(string pin, string state = "")
