@@ -34,7 +34,7 @@ namespace Panacea.Modules.Imprivata
         {
             try
             {
-                string passw = await ShowPasswordPopupAsync("KOSTAS", "WTF IS MODALITY");
+
                 //change card depending on imprivata installation
                 var results = new List<KeyValuePair<int, XElement>>();
                 Exception exception = null;
